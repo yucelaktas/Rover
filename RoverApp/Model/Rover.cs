@@ -68,20 +68,7 @@ namespace RoverApp.Model
 
             if (commandLetters.Equals(commandLetter))
             {
-                switch (commandLetter)
-                {
-                    case 'L':
-
-                        break;
-
-                    case 'R':
-
-                        break;
-
-                    case 'M':
-
-                        break;
-                }
+                
 
             }
         }
