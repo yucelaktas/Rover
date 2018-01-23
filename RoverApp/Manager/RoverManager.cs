@@ -9,20 +9,29 @@ namespace RoverApp
 {
     public class RoverManager
     {
-        public int[,] RoverMove(int[,] correntPosition, char currentDirection, params char[] commandLetters)
+        public int[,] RoverMove(int[,] currentPosition,char currentDirection,out char lastDirection, params char[] commandLetters)
         {
+            char currentD = currentDirection;
+
+            int[,] currentP = currentPosition;
+
 
             foreach (var letter in commandLetters)
             {
-                if(letter=='M')
-                    ForwardRover()
+                if (letter == 'M')
+                    ForwardRover(currentD,ref currentP);
+                else
+                {
+                    TurnRover(ref currentD,letter);
+                }
             }
 
+            lastDirection = currentD;
 
-            return null;
+            return currentP;
         }
 
-        private char TurnRover(char currentDirection, char commandLetter)
+        private void TurnRover(ref char currentDirection, char commandLetter)
         {
             char[] directions = { 'N', 'W', 'S', 'E' };
 
@@ -55,12 +64,25 @@ namespace RoverApp
                     break;
 
             }
-            return currentDirection;
         }
 
-        private char ForwardRover()
+        private void ForwardRover(char currentDirection,ref int[,] currentPosition)
         {
-            
+            switch (currentDirection)
+            {
+                case 'E':
+                    currentPosition[0, 0] += currentPosition[0,0];
+                    break;
+                case 'W':
+                    currentPosition[0, 0] -= currentPosition[0, 0];
+                    break;
+                case 'N':
+                    currentPosition[0, 1] += currentPosition[0, 1];
+                    break;
+                case 'S':
+                    currentPosition[0, 1] -= currentPosition[0, 1];
+                    break;
+            }
         }
     }
 
