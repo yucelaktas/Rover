@@ -13,7 +13,7 @@ namespace RoverApp.Model
             if (startedPosition.GetLength(0) == 1 && startedPosition.GetLongLength(1) == 2)
             {
                 char[] directions = {'N', 'S', 'W', 'E'};
-                if (directions.Equals(startedDireciton))
+                if (directions.Contains(startedDireciton))
                 {
                     _position = startedPosition;
                     _direction = startedDireciton;
