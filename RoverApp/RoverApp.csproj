@@ -42,8 +42,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Helper\IRoverHelper.cs" />
     <Compile Include="Helper\RoverHelper.cs" />
-    <Compile Include="Model\IMoveable.cs" />
     <Compile Include="Model\Rover.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

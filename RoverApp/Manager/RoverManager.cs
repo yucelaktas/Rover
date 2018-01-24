@@ -11,6 +11,13 @@ namespace RoverApp
 {
     public class RoverManager
     {
+        private readonly IRoverHelper _roverHelper;
+
+        public RoverManager(IRoverHelper roverHelper)
+        {
+            _roverHelper = roverHelper;
+        }
+
         public Rover RoverMove(Rover rover, params char[] commandLetters)
         {
             char currentD = rover.Direction;
@@ -19,24 +26,19 @@ namespace RoverApp
 
             RoverHelper roverHelper = new RoverHelper();
 
-
             foreach (var letter in commandLetters)
             {
                 if (letter == 'M')
-                    roverHelper.ForwardRover(currentD,ref currentP);
+                    rover.Position = roverHelper.ForwardRoverPosition(currentD, currentP);
                 else
                 {
-                    roverHelper.TurnRover(ref currentD,letter);
+                    rover.Direction = roverHelper.TurnRoverDirection(currentD, letter);
                 }
             }
 
-            rover.Position = currentP;
-
-            rover.Direction = currentD;
-
-            return rover ;
+            return rover;
         }
 
     }
-
 }
+

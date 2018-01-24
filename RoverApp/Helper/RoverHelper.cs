@@ -6,60 +6,69 @@ using System.Threading.Tasks;
 
 namespace RoverApp.Helper
 {
-    public class RoverHelper
+    public class RoverHelper : IRoverHelper
     {
-        public  void TurnRover(ref char currentDirection, char commandLetter)
+        public char TurnRoverDirection(char currentDirection, char commandLetter)
         {
             char[] directions = { 'N', 'W', 'S', 'E' };
 
-            int currentIndex = Array.IndexOf(directions, currentDirection);
+            int indexOfDirection = Array.IndexOf(directions, currentDirection);
+
+            char newDirection;
 
             switch (commandLetter)
             {
                 case 'L':
 
-                    if (currentIndex == directions.Length - 1)
-                        currentDirection = 'N';
+                    if (indexOfDirection == directions.Length - 1)
+                        newDirection = 'N';
                     else
                     {
-                        currentIndex += 1;
+                        indexOfDirection += 1;
 
-                        currentDirection = directions[currentIndex];
+                        newDirection = directions[indexOfDirection];
                     }
                     break;
 
                 case 'R':
 
-                    if (currentIndex == 0)
-                        currentDirection = 'E';
+                    if (indexOfDirection == 0)
+                        newDirection = 'E';
                     else
                     {
-                        currentIndex -= 1;
+                        indexOfDirection -= 1;
 
-                        currentDirection = directions[currentIndex];
+                        newDirection = directions[indexOfDirection];
                     }
                     break;
 
+                default:
+                    newDirection = currentDirection;
+                    break;
             }
+            return newDirection;
         }
 
-        public void ForwardRover(char currentDirection, ref int[,] currentPosition)
+        public int[,] ForwardRoverPosition(char currentDirection, int[,] currentPosition)
         {
+            int[,] newPosition = currentPosition;
+
             switch (currentDirection)
             {
                 case 'E':
-                    currentPosition[0, 0] += 1;
+                    newPosition[0, 0] += 1;
                     break;
                 case 'W':
-                    currentPosition[0, 0] -= 1;
+                    newPosition[0, 0] -= 1;
                     break;
                 case 'N':
-                    currentPosition[0, 1] += 1;
+                    newPosition[0, 1] += 1;
                     break;
                 case 'S':
-                    currentPosition[0, 1] -= 1;
+                    newPosition[0, 1] -= 1;
                     break;
             }
+            return newPosition;
         }
     }
 }
