@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using RoverApp.Helper;
 using RoverApp.Model;
 
 namespace RoverApp
@@ -19,7 +20,7 @@ namespace RoverApp
 
             rover2.Name = "rover2";
 
-            RoverManager roverManager = new RoverManager();
+            RoverManager roverManager = new RoverManager(new RoverHelper());
 
             rover1 = roverManager.RoverMove(rover1, 'L', 'M', 'L', 'M', 'L', 'M', 'L', 'M', 'M');
 

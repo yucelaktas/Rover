@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,44 +9,21 @@ namespace RoverApp.Helper
 {
     public class RoverHelper : IRoverHelper
     {
+        private readonly char[] DIRECTIONS = { 'N', 'E', 'S', 'W' };
+
         public char TurnRoverDirection(char currentDirection, char commandLetter)
         {
-            char[] directions = { 'N', 'W', 'S', 'E' };
 
-            int indexOfDirection = Array.IndexOf(directions, currentDirection);
+            int indexOfDirection = Array.IndexOf(DIRECTIONS, currentDirection);
 
-            char newDirection;
+            char newDirection = currentDirection;
 
-            switch (commandLetter)
-            {
-                case 'L':
+            if (commandLetter == 'R')
+                newDirection = DIRECTIONS[(indexOfDirection + 1) % 4];
 
-                    if (indexOfDirection == directions.Length - 1)
-                        newDirection = 'N';
-                    else
-                    {
-                        indexOfDirection += 1;
+            if (commandLetter == 'L')
+                newDirection = DIRECTIONS[(((indexOfDirection - 1) % 4) + 4) % 4];
 
-                        newDirection = directions[indexOfDirection];
-                    }
-                    break;
-
-                case 'R':
-
-                    if (indexOfDirection == 0)
-                        newDirection = 'E';
-                    else
-                    {
-                        indexOfDirection -= 1;
-
-                        newDirection = directions[indexOfDirection];
-                    }
-                    break;
-
-                default:
-                    newDirection = currentDirection;
-                    break;
-            }
             return newDirection;
         }
 
@@ -53,22 +31,23 @@ namespace RoverApp.Helper
         {
             int[,] newPosition = currentPosition;
 
-            switch (currentDirection)
-            {
-                case 'E':
-                    newPosition[0, 0] += 1;
-                    break;
-                case 'W':
-                    newPosition[0, 0] -= 1;
-                    break;
-                case 'N':
-                    newPosition[0, 1] += 1;
-                    break;
-                case 'S':
-                    newPosition[0, 1] -= 1;
-                    break;
-            }
+            var addedPosition = _positionInfo[currentDirection];
+
+            newPosition[0, 0] += addedPosition[0, 0];
+
+            newPosition[0, 1] += addedPosition[0, 1];
+
             return newPosition;
         }
+
+        private Dictionary<char, int[,]> _positionInfo = new Dictionary<char, int[,]>()
+        {
+            {'E',new int[1,2]{{1,0}}},
+            {'W',new int[1,2]{{-1,0}}},
+            {'N',new int[1,2]{{0,1}}},
+            {'S',new int[1,2]{{0,-1}}}
+        };
+
     }
+
 }

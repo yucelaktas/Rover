@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace RoverApp.Model
 {
-    public class Rover : IMoveable
+    public class Rover
     {
         public Rover(int[,] startedPosition, char startedDireciton)
         {

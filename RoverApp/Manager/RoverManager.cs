@@ -20,20 +20,13 @@ namespace RoverApp
 
         public Rover RoverMove(Rover rover, params char[] commandLetters)
         {
-            char currentD = rover.Direction;
-
-            int[,] currentP = rover.Position;
-
-            RoverHelper roverHelper = new RoverHelper();
 
             foreach (var letter in commandLetters)
             {
                 if (letter == 'M')
-                    rover.Position = roverHelper.ForwardRoverPosition(currentD, currentP);
+                    rover.Position = _roverHelper.ForwardRoverPosition(rover.Direction, rover.Position);
                 else
-                {
-                    rover.Direction = roverHelper.TurnRoverDirection(currentD, letter);
-                }
+                    rover.Direction = _roverHelper.TurnRoverDirection(rover.Direction, letter);
             }
 
             return rover;

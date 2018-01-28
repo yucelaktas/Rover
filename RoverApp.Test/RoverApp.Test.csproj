@@ -73,6 +73,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RoverHelperTests\when_rover_direction_turning.cs" />
     <Compile Include="RoverManagerTests\when_rover_moving.cs" />
   </ItemGroup>
   <ItemGroup>
